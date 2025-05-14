@@ -1,116 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Login Page</title>
+function login() {
+  var username = document.getElementById('username').value.trim().toLowerCase();
+  var password = document.getElementById('password').value.trim();
 
-  <!-- Firebase App (the core Firebase SDK) -->
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
-
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      background-color: #f4f4f9;
+  // Worker accounts with their passwords and redirect URLs
+  const users = {
+    "admin": {
+      password: "password",
+      redirect: "https://sites.google.com/view/tsg-fun-homepage/home"
+    },
+    "worker1": {
+      password: "worker1pass",
+      redirect: "https://sites.google.com/view/tsg-worker1-login"
+    },
+    "worker2": {
+      password: "worker2pass",
+      redirect: "https://sites.google.com/view/tsg-worker2-login"
+    },
+    "worker3": {
+      password: "worker3pass",
+      redirect: "https://sites.google.com/view/tsg-worker3-login"
     }
-    .login-container {
-      background-color: white;
-      padding: 20px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      border-radius: 8px;
-      width: 300px;
-      text-align: center;
-    }
-    .input-field {
-      width: 100%;
-      padding: 10px;
-      margin-top: 10px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
-    .login-btn, .google-btn {
-      width: 100%;
-      padding: 10px;
-      margin-top: 10px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    .login-btn {
-      background-color: #4CAF50;
-      color: white;
-    }
-    .login-btn:hover {
-      background-color: #45a049;
-    }
-    .google-btn {
-      background-color: #DB4437;
-      color: white;
-    }
-    .google-btn:hover {
-      background-color: #c1351d;
-    }
-  </style>
-</head>
-<body>
-
-<div class="login-container">
-  <h2>Login</h2>
-  <form id="loginForm">
-    <input type="text" id="username" class="input-field" placeholder="Username" required>
-    <input type="password" id="password" class="input-field" placeholder="Password" required>
-    <button type="button" class="login-btn" onclick="login()">Log In</button>
-  </form>
-  <div id="error-message" style="color: red;"></div>
-  <button class="google-btn" onclick="signInWithGoogle()">Sign in with Google</button>
-</div>
-
-<script>
-  // Firebase config
-  const firebaseConfig = {
-    apiKey: "AIzaSyA03mNfHKCeYWtD6CT0gIGdPmDclYymyDM",
-    authDomain: "tsg-fun-login.firebaseapp.com",
-    projectId: "tsg-fun-login",
-    storageBucket: "tsg-fun-login.appspot.com",
-    messagingSenderId: "398702513974",
-    appId: "1:398702513974:web:e290464e8519206e0dad97",
-    measurementId: "G-3VP2SJB4X7"
   };
 
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
-  const auth = firebase.auth();
-  const provider = new firebase.auth.GoogleAuthProvider();
-
-  function signInWithGoogle() {
-    auth.signInWithPopup(provider)
-      .then((result) => {
-        console.log("Signed in as:", result.user.displayName);
-        window.location.href = "https://sites.google.com/view/tsg-fun-homepage/home";
-      })
-      .catch((error) => {
-        console.error("Google Sign-In Error:", error);
-        alert("Google Sign-In Failed! " + error.message);
-      });
+  if (users[username] && users[username].password === password) {
+    window.location.href = users[username].redirect;
+  } else {
+    document.getElementById('error-message').textContent = 'Invalid username or password!';
   }
-
-  function login() {
-    var username = document.getElementById('username').value.trim();
-    var password = document.getElementById('password').value.trim();
-
-    // Dummy login logic — replace with real backend auth if needed
-    if (username === "admin" && password === "password") {
-      window.location.href = "https://sites.google.com/view/tsg-fun-homepage/home";
-    } else {
-      document.getElementById('error-message').textContent = 'Invalid username or password!';
-    }
-  }
-</script>
-
-</body>
-</html>
+}
