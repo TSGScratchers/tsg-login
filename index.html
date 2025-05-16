@@ -100,7 +100,8 @@
   }
 
 function login(event) {
-  event?.preventDefault(); // stops form submission if triggered by a form
+  event?.preventDefault(); // stop form submission
+
   var username = document.getElementById('username').value.trim().toLowerCase();
   var password = document.getElementById('password').value.trim();
 
@@ -111,15 +112,15 @@ function login(event) {
     },
     "worker1": {
       password: "worker1pass",
-      redirect: "https://sites.google.com/view/tsg-worker1-login"
+      redirect: "https://sites.google.com/view/tsgfundashboard/home"
     },
     "worker2": {
       password: "worker2pass",
-      redirect: "https://sites.google.com/view/tsg-worker2-login"
+      redirect: "https://sites.google.com/view/tsgfundashboard/home"
     },
     "worker3": {
       password: "worker3pass",
-      redirect: "https://sites.google.com/view/tsg-worker3-login"
+      redirect: "https://sites.google.com/view/tsgfundashboard/home"
     }
   };
 
