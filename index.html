@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Login Page</title>
 
-  <!-- Firebase App (the core Firebase SDK) -->
+  <!-- Firebase SDK -->
   <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
 
@@ -55,18 +55,22 @@
     .google-btn:hover {
       background-color: #c1351d;
     }
+    #error-message {
+      color: red;
+      margin-top: 10px;
+    }
   </style>
 </head>
 <body>
 
 <div class="login-container">
   <h2>Login</h2>
-  <form id="loginForm">
+  <div id="loginForm">
     <input type="text" id="username" class="input-field" placeholder="Username" required>
     <input type="password" id="password" class="input-field" placeholder="Password" required>
-    <button type="submit" class="login-btn" onclick="login(event)">Log In</button>
-  </form>
-  <div id="error-message" style="color: red;"></div>
+    <button type="button" class="login-btn" onclick="login(event)">Log In</button>
+  </div>
+  <div id="error-message"></div>
   <button class="google-btn" onclick="signInWithGoogle()">Sign in with Google</button>
 </div>
 
@@ -99,37 +103,37 @@
       });
   }
 
-function login(event) {
-  event?.preventDefault(); // stop form submission
+  function login(event) {
+    event?.preventDefault();
 
-  var username = document.getElementById('username').value.trim().toLowerCase();
-  var password = document.getElementById('password').value.trim();
+    var username = document.getElementById('username').value.trim().toLowerCase();
+    var password = document.getElementById('password').value.trim();
 
-  const users = {
-    "admin": {
-      password: "password",
-      redirect: "https://sites.google.com/view/tsg-fun-homepage/home"
-    },
-    "worker1": {
-      password: "worker1pass",
-      redirect: "https://sites.google.com/view/tsgfundashboard/home"
-    },
-    "worker2": {
-      password: "worker2pass",
-      redirect: "https://sites.google.com/view/tsgfundashboard/home"
-    },
-    "worker3": {
-      password: "worker3pass",
-      redirect: "https://sites.google.com/view/tsgfundashboard/home"
+    const users = {
+      "admin": {
+        password: "password",
+        redirect: "https://sites.google.com/view/tsg-fun-homepage/home"
+      },
+      "ummirf": {
+        password: "password",
+        redirect: "https://sites.google.com/view/tsgfundashboard/home"
+      },
+      "aarkha": {
+        password: "password",
+        redirect: "https://sites.google.com/view/tsgfundashboard/home"
+      },
+      "ibbali": {
+        password: "password",
+        redirect: "https://sites.google.com/view/tsgfundashboard/home"
+      }
+    };
+
+    if (users[username] && users[username].password === password) {
+      window.location.href = users[username].redirect;
+    } else {
+      document.getElementById('error-message').textContent = 'Invalid username or password!';
     }
-  };
-
-  if (users[username] && users[username].password === password) {
-    window.location.href = users[username].redirect;
-  } else {
-    document.getElementById('error-message').textContent = 'Invalid username or password!';
   }
-}
 </script>
 
 </body>
